@@ -1,0 +1,33 @@
+version: '3.7'
+services:
+  jenkins:
+    image: ghcr.io/eficode-academy/jenkins-katas-server:latest
+    #image: jenkins-server
+    user: root
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+      - jenkins_home:/var/jcasc/jenkins_home
+      - ./casc-config:/var/jcasc/jenkins_config
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment: 
+      - CASC_JENKINS_CONFIG=/var/jcasc/jenkins_config
+    secrets:
+      - adminpw
+  #swarm_agent:
+  #  build: 
+  #    context: .
+  #    dockerfile: ./Dockerfile-jenkins-swarm
+  #  environment: 
+  #    J_URL: jenkins:8080
+  #    J_USR: admin
+  #   J_PSW: adminpassword
+  #    J_LABELS: swarm linux jdk11
+  #  volumes: 
+  #    - /var/run/docker.sock:/var/run/docker.sock
+secrets:
+  adminpw:
+    file: ./secret/admin.txt
+volumes:
+  jenkins_home:

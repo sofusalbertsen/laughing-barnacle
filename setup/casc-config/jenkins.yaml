@@ -1,0 +1,20 @@
+jenkins:
+  systemMessage: "Welcome to Jenkins training!"
+  numExecutors: 3
+  mode: NORMAL
+  scmCheckoutRetryCount: 3
+  labelString: "master-label"
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+      - id: admin
+        password: ${adminpw:-7p4rk3r4qgp3c}
+  authorizationStrategy:
+    globalMatrix:
+      permissions:
+        - "Overall/Read:anonymous"
+        - "Overall/Administer:authenticated"
+unclassified:
+  location:
+    url: "http://IPADR:8080"
